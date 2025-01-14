@@ -1,0 +1,7 @@
+kmejri020@gmail.com	
+khalilslam1234
+
+
+khalilSlam123
+etudient123
+mongodb+srv://etudient123:khalilSlam123@cluster0.r4ug8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
