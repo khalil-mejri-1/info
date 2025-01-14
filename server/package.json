@@ -7,8 +7,12 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
+ 
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": "20.18.0"
+  },
   "license": "ISC",
   "description": "",
   "dependencies": {

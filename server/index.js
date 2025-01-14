@@ -139,6 +139,6 @@ app.patch('/update-payment/:studentId', async (req, res) => {
 
 // Start the Server
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(PORT||process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
