@@ -24,7 +24,7 @@ mongoose.connect('mongodb+srv://etudient123:khalilSlam123@cluster0.r4ug8.mongodb
 
 // Example Route
 app.get('/', (req, res) => {
-  res.send('Helloaaaaaaaa World!');
+  res.send('5/2/2025');
 });
 
 
@@ -136,6 +136,81 @@ app.patch('/update-payment/:studentId', async (req, res) => {
     }
   });
   
+
+
+  app.get('/etudiants', async (req, res) => {
+    try {
+      const etudiants = await Etudiant.find({}, 'name -_id'); // جلب الأسماء فقط
+      res.status(200).json(etudiants);
+    } catch (error) {
+      res.status(500).json({ error: 'Server error', details: error.message });
+    }
+  });
+  
+
+
+// Route to add new etudiant
+app.post('/add_new_etudiant', async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ error: 'Name is required' });
+    }
+
+    // التأكد إذا كان الاسم موجودًا بالفعل لتجنب التكرار
+    const existingEtudiant = await Etudiant.findOne({ name });
+    if (existingEtudiant) {
+      return res.status(409).json({ error: 'Student already exists' });
+    }
+
+    const newEtudiant = new Etudiant({ name, date: [] });
+
+    await newEtudiant.save();
+    res.status(201).json({ message: 'Etudiant added successfully', etudiant: newEtudiant });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error', details: error.message });
+  }
+});
+
+app.delete('/delete-etudiant/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Etudiant.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ error: 'Etudiant not found' });
+    }
+
+    res.status(200).json({ message: 'Etudiant deleted successfully' });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+app.patch('/update-payment/:studentId/:dateId', async (req, res) => {
+  try {
+    const { studentId, dateId } = req.params;
+    
+    const etudiant = await Etudiant.findById(studentId);
+    if (!etudiant) return res.status(404).json({ message: "Student not found" });
+
+    const dateObj = etudiant.date.id(dateId);
+    if (!dateObj) return res.status(404).json({ message: "Date not found" });
+
+    // Toggle the payment status
+    dateObj.payment = dateObj.payment === "oui" ? "non" : "oui";
+    
+    await etudiant.save();
+    res.status(200).json({ message: "Payment updated", updated: dateObj });
+  } catch (error) {
+    console.error("Error updating payment:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 // Start the Server
 const PORT = 3000;
