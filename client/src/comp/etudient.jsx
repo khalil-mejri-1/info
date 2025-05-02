@@ -14,7 +14,7 @@ const Etudient = () => {
 
       
       useEffect(() => {
-        fetch("http://localhost:3000/afficher")
+        fetch("https://info-7kpq.vercel.app/afficher")
           .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);

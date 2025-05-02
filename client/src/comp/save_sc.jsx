@@ -38,7 +38,7 @@ const SaveSc = () => {
         const data = { names: selectedNames, date };
       
         try {
-          const response = await fetch('http://localhost:3000/add_etudient', {
+          const response = await fetch('https://info-7kpq.vercel.app/add_etudient', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

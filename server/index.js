@@ -11,7 +11,11 @@ app.use(cors()); // Allow all origins by default
 
 
 
-mongoose.connect('mongodb+srv://etudient123:khalilSlam123@cluster0.r4ug8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://etudient123:khalilSlam123@cluster0.r4ug8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,  // زيادة المهلة إلى 30 ثانية
+})
   .then(() => {
     console.log("Connected to MongoDB");
   })

@@ -12,7 +12,7 @@ const Etudient = () => {
     const handlePayment = async (studentId) => {
         try {
           // إرسال طلب إلى الخادم لتحديث حالة الدفع لجميع التواريخ إلى "non"
-          const response = await fetch(`http://localhost:3000/update-payment/${studentId}`, {
+          const response = await fetch(`https://info-7kpq.vercel.app/update-payment/${studentId}`, {
             method: 'PATCH',
           });
           if (response.ok) {
@@ -31,7 +31,7 @@ const Etudient = () => {
 
       
       useEffect(() => {
-        fetch("http://localhost:3000/afficher")
+        fetch("https://info-7kpq.vercel.app/afficher")
           .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
